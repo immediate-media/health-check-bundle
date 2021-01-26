@@ -1,0 +1,35 @@
+{
+  "name": "immediate/health-check-bundle",
+  "description": "Heath Check bundle for Immediate applications and services",
+  "type": "symfony-bundle",
+  "license": "Proprietary",
+  "require": {
+    "php": ">= 7.4"
+  },
+  "require-dev": {
+    "symfony/framework-bundle": "5.2.*",
+    "symfony/phpunit-bridge": "5.x-dev",
+    "symfony/browser-kit": "5.x-dev",
+    "symfony/yaml": "5.x-dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "Immediate\\Bundle\\HealthCheckBundle\\": ""
+    },
+    "exclude-from-classmap": [
+      "/Tests/"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Immediate\\Bundle\\HealthCheckBundle\\Tests\\": "Tests/"
+    }
+  },
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Michael Smith",
+      "email": "michael.smith@immediate.co.uk"
+    }
+  ]
+}

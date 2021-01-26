@@ -1,0 +1,7 @@
+framework:
+  test: ~
+  router:
+    resource: "%kernel.project_dir%/tests/app/config/routing.yaml"
+    strict_requirements: ~
+    utf8: true
+  secret: 'fake_secret'
