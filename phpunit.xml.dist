@@ -11,6 +11,9 @@
         <server name="SYMFONY_ENV" value="test" />
         <server name="KERNEL_DIR" value="Tests/"/>
         <server name="KERNEL_CLASS" value="Immediate\Bundle\HealthCheckBundle\Tests\App\TestKernel"/>
+        <env name="APP_VERSION" value="1234567890"/>
+        <env name="LAST_COMMIT_DATE" value="Tue Jan 26 17:20:19 2021 +0000"/>
+        <env name="BUILD_START_TIME" value="1611682822"/>
     </php>
 
     <testsuites>
