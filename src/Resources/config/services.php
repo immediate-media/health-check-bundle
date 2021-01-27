@@ -14,10 +14,10 @@ return static function (ContainerConfigurator $container) {
         ->set('app.last_commit_date', '%env(string:LAST_COMMIT_DATE)%')
         ->set('app.build_start_time', '%env(string:BUILD_START_TIME)%');
 
-    /** Register the Health Check controller explicitly as a service subscriber */
+//    /** Register the Health Check controller explicitly as a service subscriber */
     $container->services()
         ->set(HealthCheckController::class)
         ->public()
-        ->call('setContainer', ['$container' => service(PsrContainerInterface::class)])
+        ->call('setContainer', ['$container' => ref(PsrContainerInterface::class)])
         ->tag('container.service_subscriber');
 };

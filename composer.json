@@ -7,13 +7,16 @@
     "php": ">= 7.4"
   },
   "require-dev": {
-    "symfony/framework-bundle": "5.2.*",
-    "symfony/phpunit-bridge": "5.x-dev",
-    "symfony/browser-kit": "5.x-dev",
-    "symfony/yaml": "5.x-dev",
-    "overtrue/phplint": "^2.3",
-    "phpmd/phpmd": "^2.9",
-    "squizlabs/php_codesniffer": "^3.5"
+    "symfony/framework-bundle": "4.4",
+    "symfony/yaml": "4.4",
+    "symfony/phpunit-bridge": "4.4",
+    "symfony/browser-kit": "4.4",
+    "overtrue/phplint": "dev-master",
+    "phpmd/phpmd": "dev-master",
+    "squizlabs/php_codesniffer": "^3.0@dev",
+    "symfony/routing": "4.4",
+    "symfony/dependency-injection": "4.4",
+    "symfony/config": "4.4"
   },
   "autoload": {
     "psr-4": {

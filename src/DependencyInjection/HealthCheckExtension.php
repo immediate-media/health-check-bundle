@@ -23,7 +23,5 @@ class HealthCheckExtension extends Extension
     {
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.php');
-//        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-//        $loader->load('services.xml');
     }
 }
