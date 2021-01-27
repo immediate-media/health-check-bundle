@@ -39,7 +39,7 @@ class HealthCheckController extends AbstractController
             return null;
         }
         try {
-            return date('d-m-Y', $buildTimeUnix);
+            return date('Y-m-d H:i:s', $buildTimeUnix);
         } catch (\Exception $e) {
             return $buildTimeUnix;
         }
