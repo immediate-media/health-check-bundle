@@ -31,14 +31,11 @@ class TestKernel extends Kernel
      */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
-        $loader->load($this->getProjectDir().'/Tests/App/config/config.yaml');
+        $loader->load($this->getProjectDir() . '/Tests/App/config/config.yaml');
     }
 
     public function getCacheDir()
     {
-        return __DIR__.'/../cache/'.spl_object_hash($this);
+        return __DIR__ . '/../cache/' . spl_object_hash($this);
     }
-
-
-
 }

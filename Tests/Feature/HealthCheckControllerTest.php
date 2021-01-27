@@ -5,7 +5,6 @@ namespace Immediate\Bundle\HealthCheckBundle\Tests\Feature;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class HealthCheckControllerTest extends WebTestCase
 {
     public function testIndex()
@@ -23,7 +22,7 @@ class HealthCheckControllerTest extends WebTestCase
 
         $expected = [
             "app"            => true,
-            "version"        => getenv('APP_VERSION').", Last Commit Date: ".getenv('LAST_COMMIT_DATE'),
+            "version"        => getenv('APP_VERSION') . ", Last Commit Date: " . getenv('LAST_COMMIT_DATE'),
             "build_executed" => getenv('BUILD_START_TIME') ? date('d-m-Y', getenv('BUILD_START_TIME')) : ''
         ];
 

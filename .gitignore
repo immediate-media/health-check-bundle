@@ -1,6 +1,10 @@
 .idea/
 vendor/
+var/log
 phpunit.xml
+phpcs.xml
 .phpunit.result.cache
+.phpcs-cache
+.phplint-cache
 composer.lock
 /tests/cache

@@ -10,7 +10,10 @@
     "symfony/framework-bundle": "5.2.*",
     "symfony/phpunit-bridge": "5.x-dev",
     "symfony/browser-kit": "5.x-dev",
-    "symfony/yaml": "5.x-dev"
+    "symfony/yaml": "5.x-dev",
+    "overtrue/phplint": "^2.3",
+    "phpmd/phpmd": "^2.9",
+    "squizlabs/php_codesniffer": "^3.5"
   },
   "autoload": {
     "psr-4": {
@@ -24,6 +27,13 @@
     "psr-4": {
       "Immediate\\Bundle\\HealthCheckBundle\\Tests\\": "Tests/"
     }
+  },
+  "scripts": {
+    "run-tests": "composer run-phpunit && composer run-phpcs && composer run-phpmd && composer run-phplint",
+    "run-phpcs": "vendor/bin/phpcs",
+    "run-phpmd": "vendor/bin/phpmd ./ text phpmd-src.xml --exclude vendor,tests,var && vendor/bin/phpmd tests text phpmd-tests.xml --exclude tests/cache",
+    "run-phplint": "vendor/bin/phplint",
+    "run-phpunit": "vendor/bin/simple-phpunit"
   },
   "minimum-stability": "dev",
   "authors": [
