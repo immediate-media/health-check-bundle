@@ -1,10 +1,12 @@
 <?php
 
-namespace Immediate\Bundle\HealthCheckBundle\DependencyInjection;
+namespace IM\Fabric\Bundle\HealthCheckBundle\DependencyInjection;
 
+use Exception;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 class HealthCheckExtension extends Extension
@@ -14,12 +16,14 @@ class HealthCheckExtension extends Extension
      * @param  array  $configs
      * @param  ContainerBuilder  $container
      *
-     * @throws \Exception
+     * @throws Exception
      * @SuppressWarnings(PHPMD)
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.xml');
+        $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('services.php');
+//        $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+//        $loader->load('services.xml');
     }
 }

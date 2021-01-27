@@ -1,6 +1,6 @@
 <?php
 
-namespace Immediate\Bundle\HealthCheckBundle\Controller;
+namespace IM\Fabric\Bundle\HealthCheckBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -8,20 +8,20 @@ use Symfony\Component\HttpFoundation\Response;
 class HealthCheckController extends AbstractController
 {
 
-    public function index(): Response
+    public function __invoke(): Response
     {
         return $this->json(
             [
-                'app'            => true,
-                'version'        => $this->getAppVersion(),
-                'build_executed' => $this->getBuildTimeForHumans()
+                'app' => true,
+                'version' => $this->getAppVersion(),
+                'build_executed' => $this->getBuildTimeForHumans(),
             ]
         );
     }
 
     protected function getAppVersion(): ?string
     {
-        $appVersion     = $this->getParameter('app.version');
+        $appVersion = $this->getParameter('app.version');
         $lastCommitDate = $this->getParameter('app.last_commit_date');
 
         if (! $appVersion) {

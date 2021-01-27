@@ -1,5 +1,5 @@
 framework:
-  test: ~
+  test: true
   router:
     resource: "%kernel.project_dir%/tests/app/config/routing.yaml"
     strict_requirements: ~

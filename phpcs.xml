@@ -11,10 +11,8 @@
     <rule ref="PSR12"/>
 
     <file>tests/</file>
-    <file>./</file>
+    <file>src</file>
 
     <exclude-pattern>/tests/cache</exclude-pattern>
-    <exclude-pattern>/vendor/*</exclude-pattern>
-    <exclude-pattern>/var/*</exclude-pattern>
 
 </ruleset>

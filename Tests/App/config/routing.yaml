@@ -1,3 +1,0 @@
-health_check:
-  resource: '@HealthCheckBundle/Resources/config/routes.xml'
-  prefix: '/'

@@ -1,6 +1,6 @@
 <?php
 
-namespace Immediate\Bundle\HealthCheckBundle\Tests\Feature;
+namespace IM\Fabric\Bundle\HealthCheckBundle\Tests\Feature;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;

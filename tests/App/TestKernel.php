@@ -1,8 +1,8 @@
 <?php
 
-namespace Immediate\Bundle\HealthCheckBundle\Tests\App;
+namespace IM\Fabric\Bundle\HealthCheckBundle\Tests\App;
 
-use Immediate\Bundle\HealthCheckBundle\HealthCheckBundle;
+use IM\Fabric\Bundle\HealthCheckBundle\HealthCheckBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;

@@ -1,7 +1,8 @@
 <?php
 
-namespace Immediate\Bundle\HealthCheckBundle\Tests;
+namespace IM\Fabric\Bundle\HealthCheckBundle\Tests;
 
+use IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class FunctionalTest extends KernelTestCase
@@ -10,7 +11,7 @@ class FunctionalTest extends KernelTestCase
     {
         self::bootKernel();
         $container = self::$container;
-        $this->assertTrue($container->has('health_check.controller.health_check_controller'));
+        $this->assertTrue($container->has(HealthCheckController::class));
         $this->assertTrue($container->hasParameter('env(APP_VERSION)'));
         $this->assertTrue($container->hasParameter('env(LAST_COMMIT_DATE)'));
         $this->assertTrue($container->hasParameter('env(BUILD_START_TIME)'));

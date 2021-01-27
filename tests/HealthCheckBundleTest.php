@@ -1,9 +1,9 @@
 <?php
 
-namespace Immediate\Bundle\HealthCheckBundle\Tests;
+namespace IM\Fabric\Bundle\HealthCheckBundle\Tests;
 
-use Immediate\Bundle\HealthCheckBundle\DependencyInjection\HealthCheckExtension;
-use Immediate\Bundle\HealthCheckBundle\HealthCheckBundle;
+use IM\Fabric\Bundle\HealthCheckBundle\DependencyInjection\HealthCheckExtension;
+use IM\Fabric\Bundle\HealthCheckBundle\HealthCheckBundle;
 use PHPUnit\Framework\TestCase;
 
 class HealthCheckBundleTest extends TestCase

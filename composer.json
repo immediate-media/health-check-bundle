@@ -17,21 +17,21 @@
   },
   "autoload": {
     "psr-4": {
-      "Immediate\\Bundle\\HealthCheckBundle\\": ""
+      "IM\\Fabric\\Bundle\\HealthCheckBundle\\": "src/"
     },
     "exclude-from-classmap": [
-      "/Tests/"
+      "/tests/"
     ]
   },
   "autoload-dev": {
     "psr-4": {
-      "Immediate\\Bundle\\HealthCheckBundle\\Tests\\": "Tests/"
+      "IM\\Fabric\\Bundle\\HealthCheckBundle\\Tests\\": "tests/"
     }
   },
   "scripts": {
     "run-tests": "composer run-phpunit && composer run-phpcs && composer run-phpmd && composer run-phplint",
     "run-phpcs": "vendor/bin/phpcs",
-    "run-phpmd": "vendor/bin/phpmd ./ text phpmd-src.xml --exclude vendor,tests,var && vendor/bin/phpmd tests text phpmd-tests.xml --exclude tests/cache",
+    "run-phpmd": "vendor/bin/phpmd src text phpmd-src.xml --exclude vendor,tests,var && vendor/bin/phpmd tests text phpmd-tests.xml --exclude tests/cache",
     "run-phplint": "vendor/bin/phplint",
     "run-phpunit": "vendor/bin/simple-phpunit"
   },

@@ -1,6 +1,6 @@
 <?php
 
-namespace Immediate\Bundle\HealthCheckBundle;
+namespace IM\Fabric\Bundle\HealthCheckBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
