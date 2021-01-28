@@ -34,21 +34,21 @@ public function registerBundles()
 {
     $bundles = [
         ...
-        new \Immediate\Bundle\HealthCheckBundle\HealthCheckBundle(),
+        new \IM\Fabric\Bundle\HealthCheckBundle\HealthCheckBundle(),
 ```
 
 ### Routing
 
 Create a new `heath_check.yaml` under your `app/config/routes` directory with the following content:
 ```yaml
-immediate_health_check:
-    resource: '@ImmediateHealthCheckBundle/Resources/config/routes.xml'
+health_check:
+    resource: '@HealthCheckBundle/Resources/config/routes.yaml'
 ```
 
 ## BUILD
 The module relies on environment variables to provide last commit time, build trigger time, and app version.  
 To ensure these are updated and referenced correctly within your Symfony application,
-ensure your `build.yaml` file contains the following `pre-build` commands:
+ensure your `buildspec.yaml` file contains the following `pre-build` commands:
 
 ```yaml
     pre_build:
