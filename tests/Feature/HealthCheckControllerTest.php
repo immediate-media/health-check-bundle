@@ -23,7 +23,7 @@ class HealthCheckControllerTest extends WebTestCase
         $expected = [
             "app"            => true,
             "version"        => getenv('APP_VERSION') . ", Last Commit Date: " . getenv('LAST_COMMIT_DATE'),
-            "build_executed" => getenv('BUILD_START_TIME') ? date('d-m-Y', getenv('BUILD_START_TIME')) : ''
+            "build_executed" => getenv('BUILD_START_TIME') ? date('Y-m-d H:i:s', getenv('BUILD_START_TIME')) : ''
         ];
 
         $this->assertSame($expected, $data);
