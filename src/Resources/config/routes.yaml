@@ -1,4 +1,4 @@
-health_check_api:
-  path: /healthcheck
-  controller: IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController
-  methods: GET
+immediate_health_check:
+    path: /healthcheck
+    controller: IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController
+    methods: GET
