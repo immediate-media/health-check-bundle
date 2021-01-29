@@ -53,9 +53,9 @@ ensure your `buildspec.yaml` file contains the following `pre-build` commands:
 ```yaml
     pre_build:
         commands:
-            - APP_VERSION=$CODEBUILD_RESOLVED_SOURCE_VERSION
+            - COMMIT_HASH=$(git rev-parse HEAD)
             - BUILD_START_TIME=$CODEBUILD_START_TIME
             - echo "LAST_COMMIT_DATE=\"$(git log -1 --format=%cd)\"" >> app/.env
-            - echo "APP_VERSION=${APP_VERSION}" >> app/.env
+            - echo "APP_VERSION=${COMMIT_HASH}" >> app/.env
             - echo "BUILD_START_TIME=${BUILD_START_TIME}" >> app/.env
 ```
