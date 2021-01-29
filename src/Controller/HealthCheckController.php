@@ -2,6 +2,7 @@
 
 namespace IM\Fabric\Bundle\HealthCheckBundle\Controller;
 
+use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,7 +40,7 @@ class HealthCheckController extends AbstractController
     {
         $commitTime = $this->getParameter('app.last_commit_date');
         try {
-            $dateTime = new \DateTime($commitTime);
+            $dateTime = new DateTime($commitTime);
             return $dateTime->format(self::DATE_FORMAT_CODE);
         } catch (Exception $e) {
             return null;

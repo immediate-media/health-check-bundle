@@ -2,6 +2,7 @@
 
 namespace IM\Fabric\Bundle\HealthCheckBundle\Tests\Feature;
 
+use DateTime;
 use IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,7 @@ class HealthCheckControllerTest extends WebTestCase
             return [
                 "app" => true,
                 "version" => getenv('APP_VERSION') . "_" . getenv('BUILD_START_TIME'),
-                "lastCommitDate" => (new \DateTime(getenv('LAST_COMMIT_DATE')))
+                "lastCommitDate" => (new DateTime(getenv('LAST_COMMIT_DATE')))
                     ->format(
                         HealthCheckController::DATE_FORMAT_CODE
                     ),
