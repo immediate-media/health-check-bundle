@@ -2,11 +2,14 @@
 
 namespace IM\Fabric\Bundle\HealthCheckBundle\Controller;
 
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 class HealthCheckController extends AbstractController
 {
+
+    public const DATE_FORMAT_CODE = 'c';
 
     public function __invoke(): Response
     {
@@ -14,7 +17,7 @@ class HealthCheckController extends AbstractController
             [
                 'app' => true,
                 'version' => $this->getAppVersion(),
-                'lastCommitDate' => $this->getParameter('app.last_commit_date'),
+                'lastCommitDate' => $this->getLastCommitTimeForHumans(),
                 'lastBuildStartTime' => $this->getBuildTimeForHumans(),
             ]
         );
@@ -32,6 +35,17 @@ class HealthCheckController extends AbstractController
         return "{$appVersion}_{$buildTimeUnix}";
     }
 
+    protected function getLastCommitTimeForHumans(): ?string
+    {
+        $commitTime = $this->getParameter('app.last_commit_date');
+        try {
+            $dateTime = new \DateTime($commitTime);
+            return $dateTime->format(self::DATE_FORMAT_CODE);
+        } catch (Exception $e) {
+            return null;
+        }
+    }
+
     protected function getBuildTimeForHumans(): ?string
     {
         //Expects Unix Time Stamp in Milliseconds, set from $
@@ -41,8 +55,8 @@ class HealthCheckController extends AbstractController
             return null;
         }
         try {
-            return date('Y-m-d H:i:s', $buildTimeUnix / 1000);
-        } catch (\Exception $e) {
+            return date(self::DATE_FORMAT_CODE, $buildTimeUnix / 1000);
+        } catch (Exception $e) {
             return $buildTimeUnix;
         }
     }
