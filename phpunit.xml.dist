@@ -10,10 +10,10 @@
         <ini name="error_reporting" value="-1"/>
         <server name="SYMFONY_ENV" value="test" />
         <server name="KERNEL_DIR" value="Tests/"/>
-        <server name="KERNEL_CLASS" value="Immediate\Bundle\HealthCheckBundle\Tests\App\TestKernel"/>
-        <env name="APP_VERSION" value="1234567890"/>
-        <env name="LAST_COMMIT_DATE" value="Tue Jan 26 17:20:19 2021 +0000"/>
-        <env name="BUILD_START_TIME" value="1611682822"/>
+        <server name="KERNEL_CLASS" value="IM\Fabric\Bundle\HealthCheckBundle\Tests\App\TestKernel"/>
+        <env name="APP_VERSION" value="fJ5MO3gDZWxwnumKt9eJCeTJKB0B4MTX"/>
+        <env name="LAST_COMMIT_DATE" value="Fri Jan 29 10:09:02 2021 +0000"/>
+        <env name="BUILD_START_TIME" value="1611915490663"/>
     </php>
 
     <testsuites>

@@ -21,9 +21,13 @@ class HealthCheckControllerTest extends WebTestCase
         $this->assertIsArray($data);
 
         $expected = [
-            "app"            => true,
-            "version"        => getenv('APP_VERSION') . ", Last Commit Date: " . getenv('LAST_COMMIT_DATE'),
-            "build_executed" => getenv('BUILD_START_TIME') ? date('Y-m-d H:i:s', getenv('BUILD_START_TIME')) : ''
+            "app" => true,
+            "version" => getenv('APP_VERSION') . "_" . getenv('BUILD_START_TIME'),
+            "lastCommitDate" => getenv('LAST_COMMIT_DATE'),
+            "lastBuildStartTime" => getenv('BUILD_START_TIME') ? date(
+                'Y-m-d H:i:s',
+                getenv('BUILD_START_TIME') / 1000
+            ) : '',
         ];
 
         $this->assertSame($expected, $data);

@@ -14,7 +14,8 @@ class HealthCheckController extends AbstractController
             [
                 'app' => true,
                 'version' => $this->getAppVersion(),
-                'build_executed' => $this->getBuildTimeForHumans(),
+                'lastCommitDate' => $this->getParameter('app.last_commit_date'),
+                'lastBuildStartTime' => $this->getBuildTimeForHumans(),
             ]
         );
     }
@@ -22,24 +23,25 @@ class HealthCheckController extends AbstractController
     protected function getAppVersion(): ?string
     {
         $appVersion = $this->getParameter('app.version');
-        $lastCommitDate = $this->getParameter('app.last_commit_date');
+        $buildTimeUnix = $this->getParameter('app.build_start_time');
 
-        if (! $appVersion) {
+        if (!$appVersion) {
             return null;
         }
 
-        return "{$appVersion}, Last Commit Date: {$lastCommitDate}";
+        return "{$appVersion}_{$buildTimeUnix}";
     }
 
     protected function getBuildTimeForHumans(): ?string
     {
+        //Expects Unix Time Stamp in Milliseconds, set from $
         $buildTimeUnix = $this->getParameter('app.build_start_time');
 
-        if (! $buildTimeUnix) {
+        if (!$buildTimeUnix) {
             return null;
         }
         try {
-            return date('Y-m-d H:i:s', $buildTimeUnix);
+            return date('Y-m-d H:i:s', $buildTimeUnix / 1000);
         } catch (\Exception $e) {
             return $buildTimeUnix;
         }
