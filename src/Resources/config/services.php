@@ -18,6 +18,6 @@ return static function (ContainerConfigurator $container) {
     $container->services()
         ->set(HealthCheckController::class)
         ->public()
-        ->call('setContainer', ['$container' => ref(PsrContainerInterface::class)])
+        ->call('setContainer', ['$container' => service(PsrContainerInterface::class)])
         ->tag('container.service_subscriber');
 };
