@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HealthCheckController extends AbstractController
 {
-
     public const DATE_FORMAT_CODE = 'c';
 
     public function __invoke(): Response
@@ -40,8 +39,7 @@ class HealthCheckController extends AbstractController
     {
         $commitTime = $this->getParameter('app.last_commit_date');
         try {
-            $dateTime = new DateTime($commitTime);
-            return $dateTime->format(self::DATE_FORMAT_CODE);
+            return (new DateTime($commitTime))->format(self::DATE_FORMAT_CODE);
         } catch (Exception $e) {
             return null;
         }
@@ -56,7 +54,7 @@ class HealthCheckController extends AbstractController
             return null;
         }
         try {
-            return date(self::DATE_FORMAT_CODE, $buildTimeUnix / 1000);
+            return date(self::DATE_FORMAT_CODE, intdiv($buildTimeUnix, 1000));
         } catch (Exception $e) {
             return $buildTimeUnix;
         }

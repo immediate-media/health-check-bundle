@@ -10,7 +10,7 @@ class FunctionalTest extends KernelTestCase
     public function testServiceSetup()
     {
         self::bootKernel();
-        $container = self::$container;
+        $container = self::getContainer();
         $this->assertTrue($container->has(HealthCheckController::class));
         $this->assertTrue($container->hasParameter('env(APP_VERSION)'));
         $this->assertTrue($container->hasParameter('env(LAST_COMMIT_DATE)'));

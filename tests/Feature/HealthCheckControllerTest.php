@@ -29,17 +29,18 @@ class HealthCheckControllerTest extends WebTestCase
 
     private function getExpectedResponse(): array
     {
+        $buildStartTime = getenv('BUILD_START_TIME');
         try {
             return [
                 "app" => true,
-                "version" => getenv('APP_VERSION') . "_" . getenv('BUILD_START_TIME'),
+                "version" => getenv('APP_VERSION') . "_" . $buildStartTime,
                 "lastCommitDate" => (new DateTime(getenv('LAST_COMMIT_DATE')))
                     ->format(
                         HealthCheckController::DATE_FORMAT_CODE
                     ),
-                "lastBuildStartTime" => getenv('BUILD_START_TIME') ? date(
+                "lastBuildStartTime" => $buildStartTime ? date(
                     HealthCheckController::DATE_FORMAT_CODE,
-                    getenv('BUILD_START_TIME') / 1000
+                    intdiv($buildStartTime, 1000)
                 ) : '',
             ];
         } catch (\Exception $e) {

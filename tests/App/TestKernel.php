@@ -9,7 +9,6 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class TestKernel extends Kernel
 {
-
     public function __construct()
     {
         parent::__construct('test', true);
@@ -18,7 +17,7 @@ class TestKernel extends Kernel
     /**
      * @inheritDoc
      */
-    public function registerBundles()
+    public function registerBundles(): iterable
     {
         return [
             new HealthCheckBundle(),
@@ -34,7 +33,7 @@ class TestKernel extends Kernel
         $loader->load($this->getProjectDir() . '/Tests/App/config/config.yaml');
     }
 
-    public function getCacheDir()
+    public function getCacheDir(): string
     {
         return __DIR__ . '/../cache/' . spl_object_hash($this);
     }
