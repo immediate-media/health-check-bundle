@@ -11,6 +11,10 @@ use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 class HealthCheckExtension extends Extension
 {
+    /**
+     * @throws Exception
+     * @SuppressWarnings(PHPMD)
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
