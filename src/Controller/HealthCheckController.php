@@ -32,7 +32,7 @@ class HealthCheckController extends AbstractController
             return null;
         }
 
-        return "{$appVersion}_{$buildTimeUnix}";
+        return "{$appVersion}_$buildTimeUnix";
     }
 
     protected function getLastCommitTimeForHumans(): ?string

@@ -1,0 +1,14 @@
+parameters:
+  env(APP_VERSION): "%env(default:local:APP_VERSION)%"
+  env(LAST_COMMIT_DATE): "%env(default:null:LAST_COMMIT_DATE)%"
+  env(BUILD_START_TIME): "%env(default:null:BUILD_START_TIME)%"
+  app.version: "%env(APP_VERSION)%"
+  app.last_commit_date: "%env(LAST_COMMIT_DATE)%"
+  app.build_start_time: "%env(BUILD_START_TIME)%"
+
+services:
+  IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController:
+    autowire: true
+    public: true
+    tags:
+      - { name: 'container.service_subscriber' }
