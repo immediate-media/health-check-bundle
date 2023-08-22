@@ -8,6 +8,9 @@ parameters:
 
 services:
   IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController:
+    arguments:
+      $doctrineMongo:   '@?doctrine_mongodb'
+      $doctrineOrm:    '@?doctrine'
     autowire: true
     public: true
     tags:
