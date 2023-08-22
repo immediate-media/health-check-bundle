@@ -34,13 +34,13 @@ class HealthCheckController extends AbstractController
 //        $appVersion = $this->getParameter('app.version');
 //        $commitTime = $this->getParameter('app.last_commit_date');
 //        $buildTimeUnix = $this->getParameter('app.build_start_time');
-        $database = $this->getParameter('app.database_driver');
+        $databaseUrl = $this->getParameter('app.database_url');
 
-        if (!$database) {
+        if (!$databaseUrl) {
             return null;
         }
 
-        return $database;
+        return $databaseUrl;
     }
 
     protected function getAppVersion(): ?string

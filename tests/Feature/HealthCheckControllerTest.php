@@ -17,7 +17,7 @@ class HealthCheckControllerTest extends WebTestCase
 
         $client->request('GET', '/healthcheck');
 
-        $this->assertNull(getenv('DATABASE_DRIVER'));
+        $this->assertNull(getenv('DATABASE_URL'));
     }
 
     public function testIndex()
