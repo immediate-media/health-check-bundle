@@ -1,11 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IM\Fabric\Bundle\HealthCheckBundle\Controller;
 
 use DateTime;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Exception\JsonException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HealthCheck\Check\DatabaseCheck;
 
 class HealthCheckController extends AbstractController
 {
@@ -19,8 +24,23 @@ class HealthCheckController extends AbstractController
                 'version' => $this->getAppVersion(),
                 'lastCommitDate' => $this->getLastCommitTimeForHumans(),
                 'lastBuildStartTime' => $this->getBuildTimeForHumans(),
+                'databaseHealthCheck' => $this->runDataBaseHealthCheck(),
             ]
         );
+    }
+
+    public function runDatabaseHealthCheck(): ?string
+    {
+//        $appVersion = $this->getParameter('app.version');
+//        $commitTime = $this->getParameter('app.last_commit_date');
+//        $buildTimeUnix = $this->getParameter('app.build_start_time');
+        $database = $this->getParameter('app.database_driver');
+
+        if (!$database) {
+            return null;
+        }
+
+        return $database;
     }
 
     protected function getAppVersion(): ?string

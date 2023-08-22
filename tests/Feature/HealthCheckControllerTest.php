@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IM\Fabric\Bundle\HealthCheckBundle\Tests\Feature;
 
 use DateTime;
@@ -9,6 +11,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HealthCheckControllerTest extends WebTestCase
 {
+    public function testDbDriver()
+    {
+        $client = self::createClient();
+
+        $client->request('GET', '/healthcheck');
+
+        $this->assertNull(getenv('DATABASE_DRIVER'));
+    }
+
     public function testIndex()
     {
         $client = self::createClient();
