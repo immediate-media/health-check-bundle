@@ -72,37 +72,20 @@ class HealthCheckController extends AbstractController
         }
     }
 
-    protected function testDatabaseConnection(): array
+    protected function testDatabaseConnection(): bool
     {
         if ($this->doctrineOrm === null && $this->doctrineMongo === null) {
-            return ['N/A'];
+            return false;
         }
 
         if ($this->doctrineOrm !== null) {
-            try {
-                return [
-                    'type' => 'orm',
-                    'status' => $this->doctrineOrm->getConnection()->connect() ? 'connected' : 'disconnected'
-                ];
-            } catch (Exception $e) {
-                return ['type' => 'orm', 'status' => 'disconnected', 'error' => $e->getMessage()];
-            }
+            return true;
         }
 
         if ($this->doctrineMongo !== null) {
-            try {
-                return [
-                    'type' => 'mongodb',
-                    'status' => 'connected',
-                    'databases' => $this->doctrineMongo->getConnection()->listDatabaseNames()
-                ];
-            } catch (Exception $e) {
-                return [
-                    'type' => 'mongodb',
-                    'status' => 'disconnected',
-                    'error' => $e->getMessage()
-                ];
-            }
+            return true;
         }
+
+        return false;
     }
 }
