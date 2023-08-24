@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IM\Fabric\Bundle\HealthCheckBundle\Controller;
 
 use DateTime;
@@ -79,13 +81,12 @@ class HealthCheckController extends AbstractController
         }
 
         if ($this->doctrineOrm !== null) {
-            return true;
+            return $this->doctrineOrm->getConnection()->connect();
         }
 
         if ($this->doctrineMongo !== null) {
-            return true;
+            return is_array($this->doctrineMongo->getConnection()->listDatabaseNames());
         }
-
         return false;
     }
 }
