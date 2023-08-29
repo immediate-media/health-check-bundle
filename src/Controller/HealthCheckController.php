@@ -13,28 +13,26 @@ use Symfony\Component\HttpFoundation\Response;
 class HealthCheckController extends AbstractController
 {
     public const DATE_FORMAT_CODE = 'c';
-    protected ?ManagerRegistry $doctrineMongo;
-    protected ?ManagerRegistry $doctrineOrm;
 
     public function __construct(
-        ?ManagerRegistry $doctrineMongo = null,
-        ?ManagerRegistry $doctrineOrm = null,
+        protected ?ManagerRegistry $manager = null
     ) {
-        $this->doctrineMongo = $doctrineMongo;
-        $this->doctrineOrm = $doctrineOrm;
     }
 
     public function __invoke(): Response
     {
-        return $this->json(
-            [
-                'app' => true,
-                'version' => $this->getAppVersion(),
-                'database' => $this->testDatabaseConnection(),
-                'lastCommitDate' => $this->getLastCommitTimeForHumans(),
-                'lastBuildStartTime' => $this->getBuildTimeForHumans(),
-            ]
-        );
+        $metrics = [
+            'app' => true,
+            'version' => $this->getAppVersion(),
+            'lastCommitDate' => $this->getLastCommitTimeForHumans(),
+            'lastBuildStartTime' => $this->getBuildTimeForHumans(),
+        ];
+
+        if ($this->manager !== null) {
+            $metrics['database'] = $this->testDatabaseConnection();
+        }
+
+        return $this->json($metrics);
     }
 
     protected function getAppVersion(): ?string
@@ -52,6 +50,11 @@ class HealthCheckController extends AbstractController
     protected function getLastCommitTimeForHumans(): ?string
     {
         $commitTime = $this->getParameter('app.last_commit_date');
+
+        if (!$commitTime) {
+            return null;
+        }
+
         try {
             return (new DateTime($commitTime))->format(self::DATE_FORMAT_CODE);
         } catch (Exception) {
@@ -76,17 +79,16 @@ class HealthCheckController extends AbstractController
 
     protected function testDatabaseConnection(): bool
     {
-        if ($this->doctrineOrm === null && $this->doctrineMongo === null) {
+        if ($this->manager === null) {
             return false;
         }
 
-        if ($this->doctrineOrm !== null) {
-            return $this->doctrineOrm->getConnection()->connect();
-        }
-
-        if ($this->doctrineMongo !== null) {
-            return is_array($this->doctrineMongo->getConnection()->listDatabaseNames());
-        }
-        return false;
+        return match (get_class($this->manager)) {
+            'Doctrine\Bundle\DoctrineBundle\Registry' => $this->manager->getConnection()->connect(),
+            'Doctrine\Bundle\MongoDBBundle\ManagerRegistry' => is_array(
+                $this->manager->getConnection()->listDatabaseNames()
+            ),
+            default => false,
+        };
     }
 }
