@@ -1,7 +1,7 @@
 parameters:
-  app.version: "%env(APP_VERSION)%"
-  app.last_commit_date: "%env(LAST_COMMIT_DATE)%"
-  app.build_start_time: "%env(BUILD_START_TIME)%"
+  app.version: "%env(default::APP_VERSION)%"
+  app.last_commit_date: "%env(default::LAST_COMMIT_DATE)%"
+  app.build_start_time: "%env(default::BUILD_START_TIME)%"
 
 services:
   IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController:
