@@ -59,3 +59,22 @@ ensure your `buildspec.yaml` file contains the following `pre-build` commands:
             - echo "APP_VERSION=${COMMIT_HASH}" >> app/.env
             - echo "BUILD_START_TIME=${BUILD_START_TIME}" >> app/.env
 ```
+
+## DATABASE HEALTH CHECK
+The module can also provide a database health check, which will check the connection to the database to ensure the
+database is responding as expected. To enable this, you must pass in your applications manager registry
+as a constructor argument to the health check controller. You can do this via dependency injection in the `services.yaml` file:
+
+### MySQL
+```yaml
+    Immediate\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController:
+        arguments:
+            $manager: '@doctrine'
+```
+
+### MongoDB
+```yaml
+    Immediate\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController:
+        arguments:
+            $manager: '@doctrine_mongodb'
+```

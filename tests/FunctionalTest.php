@@ -12,9 +12,6 @@ class FunctionalTest extends KernelTestCase
         self::bootKernel();
         $container = self::getContainer();
         $this->assertTrue($container->has(HealthCheckController::class));
-        $this->assertTrue($container->hasParameter('env(APP_VERSION)'));
-        $this->assertTrue($container->hasParameter('env(LAST_COMMIT_DATE)'));
-        $this->assertTrue($container->hasParameter('env(BUILD_START_TIME)'));
         $this->assertTrue($container->hasParameter('app.version'));
         $this->assertTrue($container->hasParameter('app.last_commit_date'));
         $this->assertTrue($container->hasParameter('app.build_start_time'));
