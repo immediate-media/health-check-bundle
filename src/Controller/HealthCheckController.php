@@ -70,8 +70,9 @@ class HealthCheckController extends AbstractController
         if (!$buildTimeUnix) {
             return null;
         }
+
         try {
-            return date(self::DATE_FORMAT_CODE, intdiv($buildTimeUnix, 1000));
+            return date(self::DATE_FORMAT_CODE, intdiv((int)$buildTimeUnix, 1000));
         } catch (Exception) {
             return $buildTimeUnix;
         }
