@@ -86,7 +86,7 @@ class HealthCheckController extends AbstractController
 
         return match (get_class($this->manager)) {
             'Doctrine\Bundle\DoctrineBundle\Registry' => $this->manager->getConnection()->connect(),
-            'Doctrine\Bundle\MongoDBBundle\ManagerRegistry' => is_array(
+            'Doctrine\Bundle\MongoDBBundle\ManagerRegistry' => is_iterable(
                 $this->manager->getConnection()->listDatabaseNames()
             ),
             default => false,
