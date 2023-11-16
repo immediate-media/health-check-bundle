@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IM\Fabric\Bundle\HealthCheckBundle\Tests\App;
 
 use IM\Fabric\Bundle\HealthCheckBundle\HealthCheckBundle;
@@ -28,7 +30,7 @@ class TestKernel extends Kernel
     /**
      * @inheritDoc
      */
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load($this->getProjectDir() . '/Tests/App/config/config.yaml');
     }
