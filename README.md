@@ -67,14 +67,14 @@ as a constructor argument to the health check controller. You can do this via de
 
 ### MySQL
 ```yaml
-    Immediate\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController:
+    IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController:
         arguments:
             $manager: '@doctrine'
 ```
 
 ### MongoDB
 ```yaml
-    Immediate\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController:
+    IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController:
         arguments:
             $manager: '@doctrine_mongodb'
 ```
