@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IM\Fabric\Bundle\HealthCheckBundle\Tests\Feature;
 
 use DateTime;
@@ -9,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HealthCheckControllerTest extends WebTestCase
 {
-    public function testIndex()
+    public function testIndex(): void
     {
         $client = self::createClient();
 
@@ -29,7 +31,7 @@ class HealthCheckControllerTest extends WebTestCase
 
     private function getExpectedResponse(): array
     {
-        $buildStartTime = getenv('BUILD_START_TIME');
+        $buildStartTime = (int)getenv('BUILD_START_TIME');
         try {
             return [
                 "app" => true,
