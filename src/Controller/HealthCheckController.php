@@ -9,7 +9,9 @@ use Exception;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use OpenApi\Attributes as OA;
 
+#[OA\Tag(name: 'Healthcheck')]
 class HealthCheckController extends AbstractController
 {
     public const DATE_FORMAT_CODE = 'c';
