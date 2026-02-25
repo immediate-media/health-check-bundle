@@ -8,20 +8,27 @@ use DateTime;
 use Exception;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use OpenApi\Attributes as OA;
+use Symfony\Component\Routing\Attribute\Route;
 
 #[OA\Tag(name: 'Healthcheck')]
 class HealthCheckController extends AbstractController
 {
-    public const DATE_FORMAT_CODE = 'c';
+    public const string DATE_FORMAT_CODE = 'c';
 
     public function __construct(
         protected ?ManagerRegistry $manager = null
     ) {
     }
 
-    public function __invoke(): Response
+    #[Route(
+        path: '/healthcheck',
+        name: 'healthcheck',
+        defaults: ['cors' => true],
+        methods: ['HEAD', 'GET']
+    )]
+    public function get(): JsonResponse
     {
         $metrics = [
             'app' => true,
@@ -34,7 +41,7 @@ class HealthCheckController extends AbstractController
             $metrics['database'] = $this->testDatabaseConnection();
         }
 
-        return $this->json($metrics);
+        return new JsonResponse($metrics);
     }
 
     protected function getAppVersion(): ?string
@@ -58,7 +65,7 @@ class HealthCheckController extends AbstractController
         }
 
         try {
-            return (new DateTime($commitTime))->format(self::DATE_FORMAT_CODE);
+            return new DateTime($commitTime)->format(self::DATE_FORMAT_CODE);
         } catch (Exception) {
             return null;
         }

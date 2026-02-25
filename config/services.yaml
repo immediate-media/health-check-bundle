@@ -4,11 +4,13 @@ parameters:
   app.build_start_time: "%env(default::BUILD_START_TIME)%"
 
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: true
+
   Symfony\Component\Filesystem\Filesystem: ~
   Symfony\Component\Yaml\Parser: ~
-    
-  IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController:
-    autowire: true
-    public: true
-    tags:
-      - { name: 'container.service_subscriber' }
+
+  IM\Fabric\Bundle\HealthCheckBundle\:
+    resource: '../src/*'
