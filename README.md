@@ -42,7 +42,7 @@ public function registerBundles()
 Create a new `heath_check.yaml` under your `app/config/routes` directory with the following content:
 ```yaml
 health_check:
-    resource: '@HealthCheckBundle/Resources/config/routes.yaml'
+    resource: '@HealthCheckBundle/config/routes.yaml'
 ```
 
 ## BUILD
