@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace IM\Fabric\Bundle\HealthCheckBundle\Tests\Feature;
+namespace IM\Fabric\Bundle\HealthCheckBundle\Tests\Application;
 
 use DateTime;
+use Exception;
 use IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,7 +46,7 @@ class HealthCheckControllerTest extends WebTestCase
                     intdiv($buildStartTime, 1000)
                 ) : '',
             ];
-        } catch (\Exception $e) {
+        } catch (Exception) {
             return [];
         }
     }

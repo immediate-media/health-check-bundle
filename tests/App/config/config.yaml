@@ -1,8 +1,5 @@
 framework:
   test: true
-  http_method_override: false
+  secret: 'test-secret'
   router:
-    resource: "%kernel.project_dir%/tests/app/config/routing.yaml"
-    strict_requirements: ~
-    utf8: true
-  secret: 'fake_secret'
+    resource: "%kernel.project_dir%/tests/App/config/routing.yaml"

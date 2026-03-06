@@ -6,10 +6,12 @@ namespace IM\Fabric\Bundle\HealthCheckBundle\Controller;
 
 use DateTime;
 use Exception;
+use IM\Fabric\Bundle\HealthCheckBundle\Enum\DatabaseType;
+use OpenApi\Attributes as OA;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use OpenApi\Attributes as OA;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[OA\Tag(name: 'Healthcheck')]
@@ -37,8 +39,15 @@ class HealthCheckController extends AbstractController
             'lastBuildStartTime' => $this->getBuildTimeForHumans(),
         ];
 
-        if ($this->manager !== null) {
-            $metrics['database'] = $this->testDatabaseConnection();
+        if ($this->manager instanceof ManagerRegistry) {
+            try {
+                $metrics['database'] = $this->testDatabaseConnection();
+            } catch (Exception $e) {
+                $metrics['database'] = false;
+                $metrics['databaseError'] = $e->getMessage();
+
+                return new JsonResponse($metrics, Response::HTTP_SERVICE_UNAVAILABLE);
+            }
         }
 
         return new JsonResponse($metrics);
@@ -53,7 +62,7 @@ class HealthCheckController extends AbstractController
             return null;
         }
 
-        return "{$appVersion}_{$buildTimeUnix}";
+        return sprintf('%s_%s', $appVersion, $buildTimeUnix);
     }
 
     protected function getLastCommitTimeForHumans(): ?string
@@ -65,7 +74,7 @@ class HealthCheckController extends AbstractController
         }
 
         try {
-            return new DateTime($commitTime)->format(self::DATE_FORMAT_CODE);
+            return (new DateTime($commitTime))->format(self::DATE_FORMAT_CODE);
         } catch (Exception) {
             return null;
         }
@@ -73,29 +82,51 @@ class HealthCheckController extends AbstractController
 
     protected function getBuildTimeForHumans(): ?string
     {
-        //Expects Unix Time Stamp in Milliseconds, set from $
         $buildTimeUnix = $this->getParameter('app.build_start_time');
 
         if (!$buildTimeUnix) {
             return null;
         }
 
+        $timestamp = (int)$buildTimeUnix;
+
+        /**
+         * Auto-detect timestamp format (seconds vs milliseconds).
+         *
+         * AWS CodeBuild provides CODEBUILD_START_TIME in SECONDS (10 digits),
+         * but this controller was originally designed expecting MILLISECONDS (13 digits).
+         * Without auto-detection, enforcing milliseconds would break all AWS deployments.
+         *
+         * Detection logic:
+         * - Timestamps < 10000000000 (year 2286 in seconds) are assumed to be in SECONDS
+         * - Convert seconds → milliseconds by multiplying by 1000
+         * - Timestamps >= 10000000000 are assumed to be in MILLISECONDS already
+         *
+         * This maintains backward compatibility while fixing the AWS CodeBuild issue.
+         * The final division by 1000 normalizes both formats to Unix seconds for date().
+         *
+         * TODO: Consider deprecating seconds format in v3.0 once all consumers migrate.
+         */
+        if ($timestamp < 10000000000) {
+            $timestamp *= 1000;
+        }
+
         try {
-            return date(self::DATE_FORMAT_CODE, intdiv((int)$buildTimeUnix, 1000));
+            return date(self::DATE_FORMAT_CODE, intdiv($timestamp, 1000));
         } catch (Exception) {
-            return $buildTimeUnix;
+            return (string)$buildTimeUnix;
         }
     }
 
     protected function testDatabaseConnection(): bool
     {
-        if ($this->manager === null) {
+        if (!$this->manager instanceof ManagerRegistry) {
             return false;
         }
 
-        return match (get_class($this->manager)) {
-            'Doctrine\Bundle\DoctrineBundle\Registry' => $this->manager->getConnection()->connect(),
-            'Doctrine\Bundle\MongoDBBundle\ManagerRegistry' => is_iterable(
+        return match ($this->manager::class) {
+            DatabaseType::DOCTRINE->value => $this->manager->getConnection()->connect(),
+            DatabaseType::MONGODB->value => is_iterable(
                 $this->manager->getConnection()->listDatabaseNames()
             ),
             default => false,

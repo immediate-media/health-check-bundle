@@ -1,7 +1,0 @@
-path: ./
-extensions:
-  - php
-exclude:
-  - var
-  - vendor
-  - tests/cache

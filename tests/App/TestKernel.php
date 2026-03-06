@@ -11,32 +11,16 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class TestKernel extends Kernel
 {
-    public function __construct()
-    {
-        parent::__construct('test', true);
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function registerBundles(): iterable
     {
         return [
-            new HealthCheckBundle(),
             new FrameworkBundle(),
+            new HealthCheckBundle(),
         ];
     }
 
-    /**
-     * @inheritDoc
-     */
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
-        $loader->load($this->getProjectDir() . '/Tests/App/config/config.yaml');
-    }
-
-    public function getCacheDir(): string
-    {
-        return __DIR__ . '/../cache/' . spl_object_hash($this);
+        $loader->load(__DIR__ . '/config/config.yaml');
     }
 }
