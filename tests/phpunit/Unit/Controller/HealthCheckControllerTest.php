@@ -157,8 +157,12 @@ class HealthCheckControllerTest extends TestCase
         $connection = Mockery::mock();
         $connection->expects('connect')->once()->andReturn(true);
 
-        // Use namedMock to ensure the mock has the exact class name needed for the match
-        $manager = Mockery::namedMock(DatabaseType::DOCTRINE->value, ManagerRegistry::class);
+        // Use namedMock with the exact class string to match ::class comparison
+        // This avoids requiring doctrine/doctrine-bundle as a hard dependency
+        $manager = Mockery::namedMock(
+            DatabaseType::DOCTRINE->value,
+            '\\Symfony\\Bridge\\Doctrine\\ManagerRegistry'
+        );
         $manager->expects('getConnection')->once()->andReturn($connection);
 
         $controller = new TestableHealthCheckController($manager);
@@ -175,8 +179,12 @@ class HealthCheckControllerTest extends TestCase
             ->once()
             ->andReturn(['db1', 'db2']); // Returns iterable array
 
-        // Use namedMock to ensure the mock has the exact class name needed for the match
-        $manager = Mockery::namedMock(DatabaseType::MONGODB->value, ManagerRegistry::class);
+        // Use namedMock with the exact class string to match ::class comparison
+        // This avoids requiring doctrine/mongodb-odm-bundle as a hard dependency
+        $manager = Mockery::namedMock(
+            DatabaseType::MONGODB->value,
+            '\\Symfony\\Bridge\\Doctrine\\ManagerRegistry'
+        );
         $manager->expects('getConnection')->once()->andReturn($connection);
 
         $controller = new TestableHealthCheckController($manager);

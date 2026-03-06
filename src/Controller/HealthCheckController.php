@@ -124,12 +124,17 @@ class HealthCheckController extends AbstractController
             return false;
         }
 
-        return match ($this->manager::class) {
-            DatabaseType::DOCTRINE->value => $this->manager->getConnection()->connect(),
-            DatabaseType::MONGODB->value => is_iterable(
-                $this->manager->getConnection()->listDatabaseNames()
-            ),
-            default => false,
-        };
+        $managerClass = $this->manager::class;
+
+        // Use string matching to avoid requiring optional dependencies
+        if ($managerClass === DatabaseType::DOCTRINE->value) {
+            return $this->manager->getConnection()->connect();
+        }
+
+        if ($managerClass === DatabaseType::MONGODB->value) {
+            return is_iterable($this->manager->getConnection()->listDatabaseNames());
+        }
+
+        return false;
     }
 }
