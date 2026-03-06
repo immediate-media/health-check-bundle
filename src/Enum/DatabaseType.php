@@ -7,10 +7,14 @@ namespace IM\Fabric\Bundle\HealthCheckBundle\Enum;
 /**
  * Database manager registry class names.
  *
- * Uses string literals to avoid importing optional dependencies.
+ * Uses string matching instead of instanceof to avoid requiring optional dependencies.
+ *
+ * @noRector Rector\CodingStyle\Rector\String_\StringClassNameToClassConstantRector
  */
 enum DatabaseType: string
 {
-    case DOCTRINE = 'Doctrine\Bundle\DoctrineBundle\Registry';
-    case MONGODB = 'Doctrine\Bundle\MongoDBBundle\ManagerRegistry';
+    /** @noRector */
+    case DOCTRINE = 'Doctrine\\Bundle\\DoctrineBundle\\Registry';
+    /** @noRector */
+    case MONGODB = 'Doctrine\\Bundle\\MongoDBBundle\\ManagerRegistry';
 }

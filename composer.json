@@ -17,7 +17,7 @@
   "require-dev": {
     "doctrine/doctrine-bundle": "^2.10",
     "doctrine/mongodb-odm-bundle": "^4.5 || ^5.5",
-    "immediate/symfony-test-config": "dev-main",
+    "immediate/symfony-test-config": "dev-chore/symfony-8.0-compat",
     "oomphinc/composer-installers-extender": "^2.0",
     "symfony/browser-kit": "^7.4 || ^8.0",
     "symfony/config": "^7.4 || ^8.0",

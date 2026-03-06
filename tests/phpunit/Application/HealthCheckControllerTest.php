@@ -37,7 +37,7 @@ class HealthCheckControllerTest extends WebTestCase
             return [
                 "app" => true,
                 "version" => getenv('APP_VERSION') . "_" . $buildStartTime,
-                "lastCommitDate" => (new DateTime(getenv('LAST_COMMIT_DATE')))
+                "lastCommitDate" => new DateTime(getenv('LAST_COMMIT_DATE'))
                     ->format(
                         HealthCheckController::DATE_FORMAT_CODE
                     ),
