@@ -12,8 +12,8 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 // because kernel boot registers an exception handler that is not restored on shutdown.
 \Symfony\Component\ErrorHandler\ErrorHandler::register();
 
-$_SERVER['KERNEL_CLASS'] = 'IM\Fabric\Bundle\HealthCheckBundle\Tests\App\TestKernel';
-$_ENV['KERNEL_CLASS'] = 'IM\Fabric\Bundle\HealthCheckBundle\Tests\App\TestKernel';
+$_SERVER['KERNEL_CLASS'] = 'IM\Fabric\Bundle\HealthCheckBundle\Tests\TestKernel';
+$_ENV['KERNEL_CLASS'] = 'IM\Fabric\Bundle\HealthCheckBundle\Tests\TestKernel';
 
 // Test fixture values for health check endpoint
 putenv('APP_VERSION=1.0.0-test');

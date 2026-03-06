@@ -7,10 +7,13 @@ services:
   _defaults:
     autowire: true
     autoconfigure: true
-    public: true
+    public: false
 
   Symfony\Component\Filesystem\Filesystem: ~
   Symfony\Component\Yaml\Parser: ~
 
   IM\Fabric\Bundle\HealthCheckBundle\:
     resource: '../src/*'
+    exclude:
+      - '../src/HealthCheckBundle.php'
+      - '../src/DependencyInjection/'

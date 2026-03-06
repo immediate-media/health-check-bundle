@@ -1,0 +1,5 @@
+framework:
+  test: true
+  secret: 'test-secret'
+  router:
+    resource: "%kernel.project_dir%/tests/config/routing.yaml"
