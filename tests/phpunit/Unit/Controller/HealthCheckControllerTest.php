@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace IM\Fabric\Bundle\HealthCheckBundle\Tests\Unit\Controller;
 
 use IM\Fabric\Bundle\HealthCheckBundle\Enum\DatabaseType;
+use IM\Fabric\Bundle\HealthCheckBundle\Tests\__Mock\TestableHealthCheckController;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Doctrine\ManagerRegistry;

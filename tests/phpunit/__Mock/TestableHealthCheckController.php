@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IM\Fabric\Bundle\HealthCheckBundle\Tests\Unit\Controller;
+namespace IM\Fabric\Bundle\HealthCheckBundle\Tests\__Mock;
 
 use IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController;
 use Override;
