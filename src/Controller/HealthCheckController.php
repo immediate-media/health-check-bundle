@@ -74,7 +74,7 @@ class HealthCheckController extends AbstractController
         }
 
         try {
-            return new DateTime($commitTime)->format(self::DATE_FORMAT_CODE);
+            return (new DateTime($commitTime))->format(self::DATE_FORMAT_CODE);
         } catch (Exception) {
             return null;
         }
