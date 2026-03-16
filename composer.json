@@ -17,7 +17,7 @@
   "require-dev": {
     "doctrine/doctrine-bundle": "^2.10",
     "doctrine/mongodb-odm-bundle": "^4.5 || ^5.5",
-    "immediate/symfony-test-config": "dev-feature/abstract-test-case-helpers",
+    "immediate/symfony-test-config": "^1.6",
     "oomphinc/composer-installers-extender": "^2.0",
     "symfony/dependency-injection": "^7.4 || ^8.0"
   },
