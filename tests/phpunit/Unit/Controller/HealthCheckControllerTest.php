@@ -158,7 +158,7 @@ class HealthCheckControllerTest extends TestCase
         // This avoids requiring doctrine/doctrine-bundle as a hard dependency
         $manager = Mockery::namedMock(
             DatabaseType::DOCTRINE->value,
-            '\\Symfony\\Bridge\\Doctrine\\ManagerRegistry'
+            ManagerRegistry::class
         );
         $manager->expects('getConnection')->once()->andReturn($connection);
 
@@ -180,7 +180,7 @@ class HealthCheckControllerTest extends TestCase
         // This avoids requiring doctrine/mongodb-odm-bundle as a hard dependency
         $manager = Mockery::namedMock(
             DatabaseType::MONGODB->value,
-            '\\Symfony\\Bridge\\Doctrine\\ManagerRegistry'
+            ManagerRegistry::class
         );
         $manager->expects('getConnection')->once()->andReturn($connection);
 
@@ -222,7 +222,7 @@ class HealthCheckControllerTest extends TestCase
 
         $manager = Mockery::namedMock(
             DatabaseType::DOCTRINE->value,
-            '\\Symfony\\Bridge\\Doctrine\\ManagerRegistry'
+            ManagerRegistry::class
         );
         $manager->expects('getConnection')->once()->andReturn($connection);
 

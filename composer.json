@@ -31,10 +31,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "IM\\Fabric\\Bundle\\HealthCheckBundle\\Tests\\": [
-        "tests/",
-        "tests/phpunit/"
-      ],
+      "IM\\Fabric\\Bundle\\HealthCheckBundle\\Tests\\": "tests/phpunit/",
       "IM\\Fabric\\Package\\SymfonyTestConfig\\": "test-config/src/"
     }
   },

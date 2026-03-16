@@ -9,9 +9,6 @@ services:
     autoconfigure: true
     public: false
 
-  Symfony\Component\Filesystem\Filesystem: ~
-  Symfony\Component\Yaml\Parser: ~
-
   IM\Fabric\Bundle\HealthCheckBundle\:
     resource: '../src/*'
     exclude:
