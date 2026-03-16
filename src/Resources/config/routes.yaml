@@ -1,0 +1,4 @@
+health_check:
+  resource: 'IM\Fabric\Bundle\HealthCheckBundle\Controller\HealthCheckController'
+  type: attribute
+  prefix: '/'
