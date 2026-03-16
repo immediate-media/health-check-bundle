@@ -8,6 +8,7 @@ use IM\Fabric\Bundle\HealthCheckBundle\Enum\DatabaseType;
 use IM\Fabric\Bundle\HealthCheckBundle\Tests\__Mock\TestableHealthCheckController;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -217,7 +218,7 @@ class HealthCheckControllerTest extends TestCase
         $connection = Mockery::mock();
         $connection->expects('connect')
             ->once()
-            ->andThrow(new \RuntimeException('Connection refused'));
+            ->andThrow(new RuntimeException('Connection refused'));
 
         $manager = Mockery::namedMock(
             DatabaseType::DOCTRINE->value,
