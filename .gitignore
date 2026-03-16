@@ -8,3 +8,5 @@ phpcs.xml
 .phplint.cache
 composer.lock
 /tests/cache
+/test-config
+/var

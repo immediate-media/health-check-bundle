@@ -1,0 +1,15 @@
+parameters:
+  app.version: "%env(default::APP_VERSION)%"
+  app.last_commit_date: "%env(default::LAST_COMMIT_DATE)%"
+  app.build_start_time: "%env(default::BUILD_START_TIME)%"
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  IM\Fabric\Bundle\HealthCheckBundle\:
+    resource: '../src/*'
+    exclude:
+      - '../src/HealthCheckBundle.php'
