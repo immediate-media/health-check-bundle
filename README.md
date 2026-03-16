@@ -61,28 +61,9 @@ health_check:
 
 ## Migration Guide
 
-### Upgrading from `<= 4.1.2`
+See [migration-guide-v4-v5.md](./migration-guide-v4-v5.md) for a full list of breaking changes when upgrading from v4 to v5.
 
-The bundle's route file has moved from `src/Resources/config/routes.yaml` to `config/routes.yaml`.
-
-#### Services using `im-symfony-framework`
-
-No action required. The framework bundle's `feature/standardize-hc-bundle` release handles this automatically.
-
-#### Services without `im-symfony-framework`
-
-Update your route import path. Find any file in `config/routes/` that references the old path and update it:
-
-```yaml
-# Before
-health_check:
-    resource: '@HealthCheckBundle/Resources/config/routes.yaml'
-
-# After
-health_check:
-    resource: '@HealthCheckBundle/config/routes.yaml'
-```
-
+---
 ## BUILD
 The module relies on environment variables to provide last commit time, build trigger time, and app version.  
 To ensure these are updated and referenced correctly within your Symfony application,
