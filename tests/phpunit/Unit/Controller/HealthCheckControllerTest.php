@@ -9,6 +9,7 @@ use IM\Fabric\Bundle\HealthCheckBundle\Tests\__Mock\TestableHealthCheckControlle
 use Mockery;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Response;
 
 class HealthCheckControllerTest extends TestCase
 {
@@ -134,21 +135,15 @@ class HealthCheckControllerTest extends TestCase
         $this->assertNull($result);
     }
 
-    public function testGetBuildTimeForHumansReturnsOriginalValueOnDateException(): void
+    public function testGetBuildTimeForHumansWithNegativeTimestamp(): void
     {
-        // Use a negative timestamp to avoid int overflow warnings
-        // This should still cause date() to return an unexpected result or throw
-        $invalidTimestamp = '-1';
         $controller = $this->createTestableController();
-        $controller->setParameter('app.build_start_time', $invalidTimestamp);
+        $controller->setParameter('app.build_start_time', '-1');
 
         $result = $controller->publicGetBuildTimeForHumans();
 
-        // With a negative value, after auto-detection it becomes -1000
-        // intdiv(-1000, 1000) = -1, which is a valid Unix timestamp
-        // So this test actually works - it returns a formatted date
-        // Let's verify it doesn't throw an exception
-        $this->assertNotNull($result);
+        // -1 seconds → intdiv(-1000, 1000) = -1 → valid Unix timestamp (1 second before epoch)
+        $this->assertSame(date('c', -1), $result);
     }
 
     // ===== Tests for testDatabaseConnection() =====
@@ -215,6 +210,31 @@ class HealthCheckControllerTest extends TestCase
 
         // Unknown types should match the default case and return false
         $this->assertFalse($result);
+    }
+
+    public function testGetReturnsDatabaseErrorResponseOnConnectionFailure(): void
+    {
+        $connection = Mockery::mock();
+        $connection->expects('connect')
+            ->once()
+            ->andThrow(new \RuntimeException('Connection refused'));
+
+        $manager = Mockery::namedMock(
+            DatabaseType::DOCTRINE->value,
+            '\\Symfony\\Bridge\\Doctrine\\ManagerRegistry'
+        );
+        $manager->expects('getConnection')->once()->andReturn($connection);
+
+        $controller = new TestableHealthCheckController($manager);
+
+        $response = $controller->get();
+
+        $this->assertSame(Response::HTTP_SERVICE_UNAVAILABLE, $response->getStatusCode());
+
+        $data = json_decode((string)$response->getContent(), true);
+
+        $this->assertFalse($data['database']);
+        $this->assertSame('Connection refused', $data['databaseError']);
     }
 
     // ===== Helper methods =====
